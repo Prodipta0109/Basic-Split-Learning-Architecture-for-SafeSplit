@@ -1,7 +1,7 @@
 
 from collections import deque
 import torch
-from torch.cuda.amp import autocast, GradScaler
+from torch.amp import GradScaler, autocast
 
 class ServerBackbone:
     def __init__(self, backbone, lr=0.01, fifo_size=10, device='auto', amp=True):
@@ -10,14 +10,14 @@ class ServerBackbone:
         self.model = backbone.to(self.device)
         self.opt = torch.optim.SGD(self.model.parameters(), lr=lr, momentum=0.9)
         self.amp = False
-        self.scaler = GradScaler(enabled=self.amp)
+        self.scaler = GradScaler(self.device,enabled=self.amp)
         self.fifo = deque(maxlen=fifo_size)
         self.global_step = 0
 
     @torch.no_grad()
     def forward_only(self, a_cpu):
         a = a_cpu.to(self.device)
-        with autocast(enabled=self.amp):
+        with autocast(self.device, enabled=self.amp):
             b = self.model(a)
         return b.detach().cpu()
 
