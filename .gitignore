@@ -1,0 +1,28 @@
+# === Python build/cache ===
+__pycache__/
+*.pyc
+*.py[cod]
+*.so
+*.pyd
+
+# === Virtual environments ===
+.venv/
+venv/
+env/
+
+# === Jupyter notebooks checkpoints ===
+.ipynb_checkpoints/
+
+# === Project-specific artifacts ===
+artifacts/
+*.pt
+*.pth
+*.ckpt
+
+# === Logs and temp ===
+*.log
+*.tmp
+
+# === OS files ===
+.DS_Store
+Thumbs.db
