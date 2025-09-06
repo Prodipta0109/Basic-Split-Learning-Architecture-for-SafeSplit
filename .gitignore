@@ -1,5 +1,6 @@
 # === Python build/cache ===
 __pycache__/
+*.pyc
 *.py[cod]
 *.so
 *.pyd
